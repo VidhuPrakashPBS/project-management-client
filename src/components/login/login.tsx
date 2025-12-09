@@ -58,15 +58,15 @@ export default function LoginComponent() {
    * @returns {Promise<{roles: Array<{id: string, name: string, description: string | null}>, permissions: Array<{id: string, permissionName: string, description: string | null}>}>} A promise that resolves to an object containing arrays of roles and permissions.
    * @throws {Error} If there was an error while fetching the user's roles and permissions from the API.
    */
-  const fetchUserRolesAndPermissions = async (userId: string) => {
-    const response = await api.get(`api/user/${userId}/roles-permissions`);
+  // const fetchUserRolesAndPermissions = async (userId: string) => {
+  //   const response = await api.get(`api/user/${userId}/roles-permissions`);
 
-    if (!response.data.success) {
-      throw new Error(response.data.message || 'Failed to fetch user data');
-    }
+  //   if (!response.data.success) {
+  //     throw new Error(response.data.message || 'Failed to fetch user data');
+  //   }
 
-    return response.data.data;
-  };
+  //   return response.data.data;
+  // };
 
   /**
    * Performs a sign-in using the provided email and password.
@@ -122,9 +122,19 @@ export default function LoginComponent() {
 
     try {
       const user = await performSignIn();
-      const { roles, permissions } = await fetchUserRolesAndPermissions(
-        user.id
-      );
+      // const { roles, permissions } = await fetchUserRolesAndPermissions(
+      //   user.id
+      // );
+      const roles = [{
+        id: 'role-1',
+        name: 'user',
+        description: 'Standard user role',
+      }];
+      const permissions = [{
+        id: 'perm-1',
+        permissionName: 'read',
+        description: 'Read access',
+      }];
       const userFullData = await api.get(`/api/user/${user.id}`);
 
       if (!userFullData.data.success) {
